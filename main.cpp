@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <boost/shared_ptr.hpp>
+#include <memory>
 
 //Test functions
 class B;
@@ -51,11 +52,31 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 
-	A a;
-	B b;
+	std::unique_ptr<int> a(new int(3));
 
-	a.setB(b);
-	b.setA(a);
+	std::unique_ptr<int> b;
+
+	std::cout<<bool(a)<<std::endl<<bool(b)<<std::endl;
+
+	b = std::move(a);
+	std::cout<<bool(a)<<std::endl<<bool(b)<<std::endl;
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

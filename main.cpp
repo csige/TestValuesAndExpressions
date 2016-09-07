@@ -30,9 +30,14 @@ public:
 class B
 {
 public:
-	B()
+	B(const A& a)//constructor
 	{
+		std::cout<<"ctor called!"<<std::endl;
 	}
+
+	B& operator =(const A& a){std::cout<<"assignment operator called!"<<std::endl;return *this;}//assignment operator
+
+	operator A(){std::cout<<"typecast operator called!"<<std::endl;return A();}//typecast-operator
 
 	~B()
 	{
@@ -52,14 +57,10 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 
-	std::unique_ptr<int> a(new int(3));
-
-	std::unique_ptr<int> b;
-
-	std::cout<<bool(a)<<std::endl<<bool(b)<<std::endl;
-
-	b = std::move(a);
-	std::cout<<bool(a)<<std::endl<<bool(b)<<std::endl;
+	A foo;
+	B bar(foo);
+	bar = foo;
+	foo = bar;
 
 	return 0;
 }
